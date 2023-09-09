@@ -1,14 +1,13 @@
 const express = require('express');
-const mongoose = require('mongoose');
+require('./db/config')
+const User = require('./db/users');
 const app = express();
-const connectDB = async ()=>{
-    mongoose.connect("mongodb://127.0.0.1:27017/e-comm");
-    const productSchema = new mongoose.Schema({});
-    const product = mongoose.model('product',productSchema);
-    const data = await product.find();
-    console.warn(data);
-}
-connectDB();
 
+app.use(express.json());
 
+app.post('/register',async(req, res)=>{
+    let user = new User(req.body);
+    let result = await user.save();
+    res.send(result)
+})
 app.listen(5000)
