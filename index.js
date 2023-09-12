@@ -44,4 +44,9 @@ app.get('/products',async(req, res)=>{
     res.send({result:"No Products Found"})
   }
 })
+
+app.delete('/product/:id',async(req, res)=>{
+  const result = await Product.deleteOne({_id:req.params.id})
+  res.send(result);
+})
 app.listen(5000);
