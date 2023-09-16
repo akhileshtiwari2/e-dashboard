@@ -48,13 +48,13 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.post("/add-product",verifyToken,async (req, res) => {
+app.post("/add-product",verifyToken, async (req, res) => {
   let product = new Product(req.body);
   let result = await product.save();
   res.send(result);
 });
 
-app.get("/products",verifyToken, async (req, res) => {
+app.get("/products",verifyToken,async (req, res) => {
   let products = await Product.find();
   if (products.length > 0) {
     res.send(products);
@@ -86,7 +86,7 @@ app.put("/product/:id",verifyToken, async (req, res) => {
   );
   res.send(result);
 });
-app.get("/search/:key",verifyToken, async (req, res) => {
+app.get("/search/:key",verifyToken,async (req, res) => {
   let result = await Product.find({
     $or: [
       { name: { $regex: req.params.key } },
